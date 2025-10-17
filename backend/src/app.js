@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const authMiddleware = require("./middlewares/auth.middleware");
 const mqtt = require("mqtt");
 const rateLimit = require("express-rate-limit")
+const path = require('path')
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,13 @@ const loginLimiter = rateLimit({
     legacyHeaders: false,
 });
 app.use("/api/login", loginLimiter)
+
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+// fallback route for SPA
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
 
 const mqttClient = mqtt.connect(process.env.MQTT_BROKER, {
     clientId: "wakeonwan-" + Math.random().toString(16).substr(2, 8),

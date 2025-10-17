@@ -125,11 +125,11 @@ app.post("/api/power", authMiddleware, async (req, res) => {
 })
 
 
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(express.static(path.join(__dirname, "../../frontend")));
 
 // fallback route for SPA
 // app.get("/*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend/index.html"));
+//     res.sendFile(path.join(__dirname, "../../frontend/index.html"));
 // });
 
 module.exports = app;

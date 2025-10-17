@@ -1,0 +1,52 @@
+# Node.js / Backend
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+.npm
+*.log
+logs/
+coverage/
+.nyc_output/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Frontend
+/frontend/node_modules/
+/frontend/build/
+/frontend/dist/
+/frontend/.cache/
+
+# Arduino / NodeMCU
+*.bin
+*.elf
+*.hex
+*.o
+.pioenvs/
+.piolibdeps/
+.pio/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.project
+.classpath
+.settings/
+
+# Misc
+*.bak
+*.tmp
+*.temp
+temp/
+tmp/
+.cache/

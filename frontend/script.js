@@ -1,5 +1,5 @@
 // === CONFIG ===
-const BASE_URL = "https://your-render-backend.onrender.com";
+const BASE_URL = "https://wow-ttpo.onrender.com/";
 
 // Include credentials for cookies
 axios.defaults.withCredentials = true;

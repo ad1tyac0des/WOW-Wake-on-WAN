@@ -23,13 +23,6 @@ const loginLimiter = rateLimit({
 });
 app.use("/api/login", loginLimiter)
 
-app.use(express.static(path.join(__dirname, "../frontend")));
-
-// fallback route for SPA
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/index.html"));
-});
-
 const mqttClient = mqtt.connect(process.env.MQTT_BROKER, {
     clientId: "wakeonwan-" + Math.random().toString(16).substr(2, 8),
     username: process.env.MQTT_USER,
@@ -128,5 +121,13 @@ app.post("/api/power", authMiddleware, async (req, res) => {
         });
     }
 })
+
+
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+// fallback route for SPA
+app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
 
 module.exports = app;

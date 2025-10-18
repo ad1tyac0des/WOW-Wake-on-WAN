@@ -7,48 +7,116 @@
     <title>WOW - Wake On WAN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-6">
-    <div class="w-full max-w-md bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-700">
-        <h1 class="text-3xl font-bold mb-8 text-center text-cyan-400">WOW - Wake On WAN</h1>
+<body>
+    <div class="grid-bg"></div>
 
-        <div id="login-section">
-            <input id="username" type="text" placeholder="Username"
-                class="w-full p-3 mb-4 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-            <input id="password" type="password" placeholder="Password"
-                class="w-full p-3 mb-6 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-
-            <button id="loginBtn"
-                class="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-lg font-semibold transition-all">
-                Login
-            </button>
-            <p id="login-msg" class="text-center text-sm text-gray-400 mt-3"></p>
-        </div>
-
-        <div id="control-section" class="hidden text-center">
-
-            <div class="mb-6">
-                <label for="pulseTime" class="block text-sm font-medium text-gray-400 mb-2">
-                    Pulse Duration (ms)
-                </label>
-                <input type="number" id="pulseTime" placeholder="Default (1000ms)"
-                    class="w-full p-3 rounded-md bg-gray-700 text-white text-center border border-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-gray-500">
+    <div class="container-wrapper min-h-screen flex items-center justify-center p-4 md:p-8">
+        <div class="w-full max-w-2xl">
+            <!-- Header -->
+            <div class="mb-12 fade-in">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-5xl md:text-6xl font-bold font-mono tracking-tighter mb-2">WOW</h1>
+                        <p class="text-sm text-gray-400 tracking-widest">WAKE ON WAN CONTROL</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="flex items-center justify-end gap-2 mb-2">
+                            <span class="status-dot"></span>
+                            <span class="text-xs text-gray-400">SYSTEM</span>
+                        </div>
+                        <p class="text-xs text-gray-500">v1.0.0</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
             </div>
-            <button id="powerBtn"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-lg font-bold text-lg mb-4 transition-all">
-                Turn PC On
-            </button>
 
-            <button id="logoutBtn"
-                class="w-full bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg text-sm transition-all">
-                Logout
-            </button>
+            <!-- Login Section -->
+            <div id="login-section" class="fade-in">
+                <div class="card p-8 md:p-12 mb-6">
+                    <div class="mb-8">
+                        <label class="block text-xs font-mono text-gray-400 mb-3 tracking-widest">USERNAME</label>
+                        <input id="username" type="text" placeholder="Enter your username"
+                            class="input-field w-full px-4 py-3 text-sm font-mono" />
+                    </div>
 
-            <p id="status-msg" class="mt-4 text-sm text-gray-400"></p>
+                    <div class="mb-8">
+                        <label class="block text-xs font-mono text-gray-400 mb-3 tracking-widest">PASSWORD</label>
+                        <input id="password" type="password" placeholder="Enter your password"
+                            class="input-field w-full px-4 py-3 text-sm font-mono" />
+                    </div>
+
+                    <button id="loginBtn" class="btn-primary w-full py-4 text-sm font-mono tracking-widest uppercase">
+                        Authenticate
+                    </button>
+
+                    <p id="login-msg" class="text-center font-mono text-xs min-h-5"></p>
+                </div>
+
+                <div class="text-center text-xs text-gray-500 font-mono">
+                    <p>SECURE CONNECTION REQUIRED</p>
+                </div>
+            </div>
+
+            <!-- Control Section -->
+            <div id="control-section" class="hidden">
+                <div class="card p-8 md:p-12">
+                    <!-- Status Header -->
+                    <div class="mb-8 pb-8 border-b border-gray-800">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400 font-mono tracking-widest mb-2">STATUS</p>
+                                <p class="text-lg font-mono">CONNECTED</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-gray-400 font-mono tracking-widest mb-2">ACCESS LEVEL</p>
+                                <p class="text-lg font-mono">ADMIN</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pulse Duration Input -->
+                    <div class="mb-8">
+                        <label class="block text-xs font-mono text-gray-400 mb-3 tracking-widest">
+                            PULSE DURATION (MS)
+                        </label>
+                        <input type="number" id="pulseTime" placeholder="500"
+                            class="input-field w-full px-4 py-3 text-sm font-mono text-center" />
+                        <p class="text-xs text-gray-500 mt-2 font-mono">Default: 500ms</p>
+                    </div>
+
+                    <div class="divider mb-8"></div>
+
+                    <!-- Power Button -->
+                    <button id="powerBtn"
+                        class="btn-primary w-full py-6 text-lg font-mono tracking-widest uppercase mb-4 font-bold">
+                        ⚡ POWER ON
+                    </button>
+
+                    <!-- Status Message -->
+                    <p id="status-msg" class="text-center text-xs font-mono min-h-6 mb-8"></p>
+
+                    <div class="divider mb-8"></div>
+
+                    <!-- Logout Button -->
+                    <button id="logoutBtn"
+                        class="btn-secondary w-full py-3 text-xs font-mono tracking-widest uppercase">
+                        DISCONNECT
+                    </button>
+                </div>
+
+                <div class="text-center text-xs text-gray-500 font-mono mt-8">
+                    <p>SESSION ACTIVE • MONITORING ENABLED</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="./script.js"></script>
+    <script src="./interaction.js"></script>
 </body>
+
 </html>

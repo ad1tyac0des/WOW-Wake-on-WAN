@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000000;
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+.font-mono {
+    font-family: "Space Mono", monospace;
+}
+
+/* Y2K Grid Background */
+.grid-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(0deg,
+            transparent 24%,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.05) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(255, 255, 255, 0.05) 75%,
+            rgba(255, 255, 255, 0.05) 76%,
+            transparent 77%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 24%,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.05) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(255, 255, 255, 0.05) 75%,
+            rgba(255, 255, 255, 0.05) 76%,
+            transparent 77%,
+            transparent);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container-wrapper {
+    position: relative;
+    z-index: 10;
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 0;
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* Button Styles */
+.btn-primary {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Input Styles */
+.input-field {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Status Messages */
+.status-success {
+    color: #00ff00c1;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    margin-top: 7px;
+    font-family: "Space Mono", monospace;
+}
+
+.status-error {
+    color: #ff0000b5;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    margin-top: 7px;
+    font-family: "Space Mono", monospace;
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+}
+
+.pulse-active {
+    animation: pulse-glow 2s infinite;
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+    0% {
+        clip-path: inset(40% 0 61% 0);
+        transform: translate(-2px, -2px);
+    }
+
+    20% {
+        clip-path: inset(92% 0 1% 0);
+        transform: translate(2px, 2px);
+    }
+
+    40% {
+        clip-path: inset(43% 0 1% 0);
+        transform: translate(-2px, 2px);
+    }
+
+    60% {
+        clip-path: inset(25% 0 58% 0);
+        transform: translate(2px, -2px);
+    }
+
+    80% {
+        clip-path: inset(54% 0 7% 0);
+        transform: translate(-2px, -2px);
+    }
+
+    100% {
+        clip-path: inset(58% 0 43% 0);
+        transform: translate(2px, 2px);
+    }
+}
+
+.glitch-text {
+    position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-text::before {
+    animation: glitch 0.3s infinite;
+    color: #ff0000;
+    z-index: -1;
+}
+
+.glitch-text::after {
+    animation: glitch 0.3s infinite reverse;
+    color: #00ff00;
+    z-index: -2;
+}
+
+/* Fade In Animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Divider */
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+}
+
+/* Status Indicator */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-dot.active {
+    background: #00ff00;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+}

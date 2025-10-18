@@ -22,12 +22,16 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
         if (!username || !password) {
             loginMsg.textContent = "Please enter both username and password.";
+            loginMsg.className = "status-error";
             return;
         }
 
-        const res = await axios.post(`${BASE_URL}/api/login`, { username, password });
+        const res = await axios.post(`${BASE_URL}/api/login`, {
+            username,
+            password,
+        });
         loginMsg.textContent = res.data.message;
-        loginMsg.className = "text-green-400 text-center text-sm mt-3";
+        loginMsg.className = "status-success";
 
         // Switch UI
         loginSection.classList.add("hidden");
@@ -35,22 +39,25 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     } catch (err) {
         console.error(err);
         loginMsg.textContent = err.response?.data?.message || "Login failed!";
-        loginMsg.className = "text-red-400 text-center text-sm mt-3";
+        loginMsg.className = "status-error";
     }
 });
 
 // === Send Power Signal ===
 document.getElementById("powerBtn").addEventListener("click", async () => {
     try {
-        const duration = pulseTimeInput.value; 
-        const res = await axios.post(`${BASE_URL}/api/power`, { duration: duration });
+        const duration = pulseTimeInput.value;
+        const res = await axios.post(`${BASE_URL}/api/power`, {
+            duration: duration,
+        });
 
         statusMsg.textContent = res.data.message;
-        statusMsg.className = "text-green-400 mt-3 text-sm";
+        statusMsg.className = "status-success";
     } catch (err) {
         console.error(err);
-        statusMsg.textContent = err.response?.data?.message || "Failed to send signal!";
-        statusMsg.className = "text-red-400 mt-3 text-sm";
+        statusMsg.textContent =
+            err.response?.data?.message || "Failed to send signal!";
+        statusMsg.className = "status-error";
     }
 });
 
@@ -64,7 +71,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
         passwordInput.value = "";
         statusMsg.textContent = "";
         loginMsg.textContent = "Logged out successfully.";
-        loginMsg.className = "text-green-400 text-center text-sm mt-3";
+        loginMsg.className = "status-success";
     } catch (err) {
         console.error(err);
     }

@@ -13,7 +13,6 @@
     <div class="w-full max-w-md bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-700">
         <h1 class="text-3xl font-bold mb-8 text-center text-cyan-400">WOW - Wake On WAN</h1>
 
-        <!-- Login form -->
         <div id="login-section">
             <input id="username" type="text" placeholder="Username"
                 class="w-full p-3 mb-4 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-400" />
@@ -27,8 +26,15 @@
             <p id="login-msg" class="text-center text-sm text-gray-400 mt-3"></p>
         </div>
 
-        <!-- Control panel -->
         <div id="control-section" class="hidden text-center">
+
+            <div class="mb-6">
+                <label for="pulseTime" class="block text-sm font-medium text-gray-400 mb-2">
+                    Pulse Duration (ms)
+                </label>
+                <input type="number" id="pulseTime" placeholder="Default (1000ms)"
+                    class="w-full p-3 rounded-md bg-gray-700 text-white text-center border border-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-gray-500">
+            </div>
             <button id="powerBtn"
                 class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-lg font-bold text-lg mb-4 transition-all">
                 Turn PC On
@@ -45,5 +51,4 @@
 
     <script src="./script.js"></script>
 </body>
-
 </html>

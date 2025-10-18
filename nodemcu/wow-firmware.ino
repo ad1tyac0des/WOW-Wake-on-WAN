@@ -19,6 +19,11 @@ const char* command_topic = "pc/power/command";
 // --- Hardware Pins ---
 const int powerButtonPin = D2; // GPIO pin connected to the optocoupler
 
+// --- Pulse Duration Settings ---
+const long minPulseDuration = 200;   // 0.2 seconds
+const long maxPulseDuration = 3000;  // 3 seconds (safe limit)
+const long defaultPulseDuration = 500; // 0.5 second default
+
 //=======================================================================
 // --- CLIENT OBJECTS & FUNCTIONS ---
 //=======================================================================
@@ -26,14 +31,26 @@ WiFiClientSecure espClientSecure;
 PubSubClient client(espClientSecure);
 
 // --- simulate a momentary power button press ---
-void pulsePowerButton() {
-  Serial.println("Received TURN_ON command. Pulsing the power button...");
+// Now accepts a duration parameter
+void pulsePowerButton(long pulseDuration) {
+  // Enforce safety limits
+  if (pulseDuration < minPulseDuration) {
+    pulseDuration = minPulseDuration;
+  }
+  if (pulseDuration > maxPulseDuration) {
+    pulseDuration = maxPulseDuration;
+  }
+
+  Serial.print("Pulsing the power button for ");
+  Serial.print(pulseDuration);
+  Serial.println(" ms...");
+  
   digitalWrite(powerButtonPin, HIGH);
-  delay(500);
+  delay(pulseDuration);
   digitalWrite(powerButtonPin, LOW);
 }
 
-// --- Callback function for incoming MQTT messages ---
+// --- Callback fn to parse new message format ---
 void callback(char* topic, byte* payload, unsigned int length) {
   String message;
   for (int i = 0; i < length; i++) {
@@ -42,16 +59,33 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message received: ");
   Serial.println(message);
 
-  // If we receive a "TURN_ON" command, pulse the button unconditionally.
-  if (String(topic) == command_topic && message == "TURN_ON") {
-    pulsePowerButton();
+  if (String(topic) == command_topic) {
+    
+    // Check for new format: "PULSE:1500"
+    if (message.startsWith("PULSE:")) {
+      String durationStr = message.substring(6); // Get text after "PULSE:"
+      long duration = durationStr.toInt();       // Convert to a number
+
+      if (duration > 0) {
+        pulsePowerButton(duration);
+      } else {
+        Serial.println("Invalid duration. Using default.");
+        pulsePowerButton(defaultPulseDuration);
+      }
+    } 
+    // Check for old format: "TURN_ON"
+    else if (message == "TURN_ON") {
+      Serial.println("Legacy 'TURN_ON' command received. Using default pulse.");
+      pulsePowerButton(defaultPulseDuration); // Use default if old command is sent
+    }
   }
 }
 
+// --- reconnect fn ---
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    String clientId = "NodeMCU-PC-Controller-";
+    String clientId = "wakeonwan-";
     clientId += String(random(0xffff), HEX);
     if (client.connect(clientId.c_str(), mqtt_user, mqtt_pass)) {
       Serial.println("connected!");
@@ -66,6 +100,7 @@ void reconnect() {
   }
 }
 
+// --- setup fn ---
 void setup() {
   Serial.begin(9600);
   pinMode(powerButtonPin, OUTPUT);
@@ -83,6 +118,7 @@ void setup() {
   espClientSecure.setInsecure();
 }
 
+// --- loop fn ---
 void loop() {
   if (!client.connected()) {
     reconnect();

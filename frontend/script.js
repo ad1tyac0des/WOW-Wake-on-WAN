@@ -12,6 +12,7 @@ const statusMsg = document.getElementById("status-msg");
 
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
+const pulseTimeInput = document.getElementById("pulseTime");
 
 // === Login ===
 document.getElementById("loginBtn").addEventListener("click", async () => {
@@ -41,7 +42,9 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 // === Send Power Signal ===
 document.getElementById("powerBtn").addEventListener("click", async () => {
     try {
-        const res = await axios.post(`${BASE_URL}/api/power`);
+        const duration = pulseTimeInput.value; 
+        const res = await axios.post(`${BASE_URL}/api/power`, { duration: duration });
+
         statusMsg.textContent = res.data.message;
         statusMsg.className = "text-green-400 mt-3 text-sm";
     } catch (err) {

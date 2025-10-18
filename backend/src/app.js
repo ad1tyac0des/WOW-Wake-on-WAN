@@ -107,14 +107,27 @@ app.post("/api/logout", (req, res) => {
 
 app.post("/api/power", authMiddleware, async (req, res) => {
     try {
-        mqttClient.publish("pc/power/command", "TURN_ON");
+        const { duration } = req.body;
+
+        const pulseTime = parseInt(duration, 10);
+
+        let mqttMessage = "";
+
+        if (pulseTime && pulseTime > 0) {
+            mqttMessage = `PULSE:${pulseTime}`;
+        } else {
+            mqttMessage = "PULSE:";
+        }
+
+        mqttClient.publish("pc/power/command", mqttMessage);
 
         await userModel.findByIdAndUpdate(req.user.id, {
             lastPowerSignal: new Date(),
         })
 
+        // Send more informative response back to the frontend
         res.status(200).json({
-            message: "Power signal sent",
+            message: `Power signal sent (${pulseTime || 'default'}ms)`,
         });
     } catch (error) {
         console.error(error)
@@ -126,10 +139,5 @@ app.post("/api/power", authMiddleware, async (req, res) => {
 
 
 app.use(express.static(path.join(__dirname, "../../frontend")));
-
-// fallback route for SPA
-// app.get("/*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../../frontend/index.html"));
-// });
 
 module.exports = app;

@@ -1,10 +1,20 @@
-# WOW - Wake On WAN
+<div align="center">
 
-## Overview
+![banner-wow3.png](https://i.postimg.cc/9Xy75XRV/banner-wow3.png)
+
+[![Arduino](https://img.shields.io/badge/Arduino-%2300979D.svg?style=for-the-badge&logo=arduino&logoColor=white)](https://www.arduino.cc/)
+[![MQTT](https://img.shields.io/badge/MQTT-%23660066.svg?style=for-the-badge&logo=mqtt&logoColor=white)](https://mqtt.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-%23339933.svg?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-%23000000.svg?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-%2313AA52.svg?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-orange.svg?style=for-the-badge)](LICENSE)
+</div>
+
+## ✨ Overview
 
 WOW (Wake On WAN) is a DIY solution that allows you to remotely power on your home or office PC from anywhere in the world, making it available for Remote Desktop Protocol (RDP) access. This project bridges the gap between traditional Wake-on-LAN (which only works within a local network) and the need to access your computer remotely over the internet.
 
-## How It Works
+## 🧩 How It Works
 
 The system consists of three main components:
 
@@ -19,7 +29,7 @@ When you're away from home and need to access your computer:
 4. The NodeMCU device receives this command and `simulates` pressing your PC's power button
 5. Your computer boots up and becomes available for RDP connection
 
-## Features
+## 🌟 Features
 
 - **Secure Authentication**: JWT-based login system with rate limiting to prevent brute force attacks
 - **Customizable Power Pulse**: Adjust the duration of the power button press (useful for different PC configurations)
@@ -27,7 +37,7 @@ When you're away from home and need to access your computer:
 - **MQTT Communication**: Reliable, lightweight messaging protocol for IoT device communication
 - **Low Power Consumption**: The NodeMCU device uses minimal electricity while waiting for commands
 
-## Getting Started
+## ⚡ Getting Started
 
 ### Prerequisites
 
@@ -64,29 +74,45 @@ When you're away from home and need to access your computer:
    ```
 7. Access the web interface by navigating to the server address in your browser
 
-## Security Considerations
+## 🛡️ Security Considerations
 
 - The system uses HTTPS and secure cookies for web communication
 - Authentication is required before sending any power commands
 - MQTT communication can be configured with TLS for additional security
 - Rate limiting prevents brute force attacks
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
 - **PC doesn't power on**: Check the hardware connections and verify the NodeMCU is receiving commands
 - **Can't connect to web interface**: Ensure your backend server is running and accessible
 - **Authentication issues**: Verify your MongoDB connection and user credentials
 - **MQTT connection problems**: Check your broker settings and network configuration
 
-## Future Enhancements
+## 🚀 Future Enhancements
 
 - Power status monitoring
 - Scheduled power on/off
 - Siri/Alexa/Google Assistant integration
 
-## License
 
-This project is open source and available under the [MIT License](LICENSE).
+## 🤝 Contributions
+
+Contributions are welcome! Feel free to:
+
+- Report bugs
+- Suggest new features
+- Submit pull requests
+
+## 📄 License
+
+[![License](https://img.shields.io/badge/license-Apache%202.0-orange.svg?style=for-the-badge)](LICENSE)
+
+This project is open source and available under the [Apache License 2.0](LICENSE). This license requires that you:
+
+- Include a copy of the license in any redistribution
+- Clearly state any significant changes made to the code
+- Preserve all copyright, patent, trademark, and attribution notices
+- Include the original author's name when using this project
 
 ---
 

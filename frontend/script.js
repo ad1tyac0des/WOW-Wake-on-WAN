@@ -36,6 +36,9 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
         // Switch UI
         loginSection.classList.add("hidden");
         controlSection.classList.remove("hidden");
+
+        // Add active class to status dot
+        document.querySelector(".status-dot").classList.add("active");
     } catch (err) {
         console.error(err);
         loginMsg.textContent = err.response?.data?.message || "Login failed!";

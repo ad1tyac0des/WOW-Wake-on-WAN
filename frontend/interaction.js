@@ -63,8 +63,8 @@ document.querySelectorAll(".input-field").forEach((input) => {
 });
 
 // Section transition animations
-const loginSection = document.getElementById("login-section");
-const controlSection = document.getElementById("control-section");
+// const loginSection = document.getElementById("login-section");
+// const controlSection = document.getElementById("control-section");
 
 function showLoginSection() {
     gsap.to(loginSection, {
@@ -132,8 +132,8 @@ originalLogoutBtn.addEventListener("click", function () {
 });
 
 // Animate status messages
-const statusMsg = document.getElementById("status-msg");
-const loginMsg = document.getElementById("login-msg");
+// const statusMsg = document.getElementById("status-msg");
+// const loginMsg = document.getElementById("login-msg");
 
 const observer = new MutationObserver(() => {
     if (statusMsg.textContent) animateStatusMessage(statusMsg);
@@ -153,7 +153,8 @@ observer.observe(loginMsg, {
 
 // Status dot pulse
 gsap.to(".status-dot", {
-    duration: 2,
+    duration: 1,
+    yoyo: true,
     repeat: -1,
     opacity: 0.5,
     ease: "sine.inOut",

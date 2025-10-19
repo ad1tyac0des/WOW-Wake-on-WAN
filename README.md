@@ -41,7 +41,7 @@ When you're away from home and need to access your computer:
 
 ### Prerequisites
 
-- NodeMCU ESP8266 development board, optocoupler(PC817), resistor(100Ω - 250Ω)
+- NodeMCU ESP8266 development board, 5V **Active-HIGH** Relay Module   (⚠️not Active-LOW)
 - MQTT broker : [HiveMQ](https://www.hivemq.com/products/mqtt-cloud-broker/)(Recommended) or [Mosquitto](https://mosquitto.org/)
 - Web hosting for the backend and frontend (or use a service like [Render](https://render.com/))
 
